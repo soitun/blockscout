@@ -11,6 +11,7 @@ COPY apps/block_scout_web/mix.exs ./apps/block_scout_web/
 COPY apps/explorer/mix.exs ./apps/explorer/
 COPY apps/ethereum_jsonrpc/mix.exs ./apps/ethereum_jsonrpc/
 COPY apps/indexer/mix.exs ./apps/indexer/
+COPY apps/utils/mix.exs ./apps/utils/
 
 ENV MIX_ENV="prod"
 ENV MIX_HOME=/opt/mix
@@ -97,6 +98,6 @@ COPY --from=builder --chown=${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP} /app/config/c
 COPY --from=builder --chown=${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP} /app/config/config_helper.exs /app/releases/${RELEASE_VERSION}/config_helper.exs
 COPY --from=builder --chown=${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP} /app/config/assets/precompiles-arbitrum.json ./config/assets/precompiles-arbitrum.json
 
-RUN chown -R ${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP} /app
+RUN mkdir dets && mkdir temp && chown -R ${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP} /app
 
 USER ${BLOCKSCOUT_USER}:${BLOCKSCOUT_GROUP}
